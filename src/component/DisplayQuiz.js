@@ -138,7 +138,7 @@ const QuestionText = styled.div`
 `;
 
 // const CorrectAnswerColor = styled.div`
-//   background-color: ${(prop) => (prop.clicked ? "green" : "red")};
+//   background-color: ${(props) => (props.clicked ? "green" : "red")};
 // `;
 
 // export default DisplayQuizQuestion;
