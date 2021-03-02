@@ -1,6 +1,7 @@
 import "./App.css";
 import React, { Component } from "react";
 import DisplayQuiz from "./component/DisplayQuiz";
+import Button from "./component/Button";
 
 export default class App extends Component {
   state = {
@@ -30,6 +31,8 @@ export default class App extends Component {
         <header className="App-header">
           <h1>Trivia Quiz Game</h1>
           {this.state.trivia && <DisplayQuiz trivia={this.state.trivia} />}
+          <br />
+          <Button reloadQuestions={() => this.componentDidMount()} />
         </header>
       </div>
     );

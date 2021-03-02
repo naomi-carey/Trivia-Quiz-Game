@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useDebugValue, useState } from "react";
 import useSound from "use-sound";
+import woosh from "../sounds/woosh.mp3";
+import styled from "styled-components";
 
-function DisplayQuizQuestion({ trivia }) {
+export default function DisplayQuizQuestion({ trivia }) {
   //   console.log(trivia.results.length);
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -10,9 +12,9 @@ function DisplayQuizQuestion({ trivia }) {
 
   //   console.log(trivia.results[currentQuestion]);
 
-  const handleWrongAnswerButton = () => {
+  const HandleWrongAnswerButton = () => {
     // console.log(handleWrongAnswerButton);
-
+    // const [play] = useSound(woosh);
     const nextQuestion = currentQuestion + 1;
     if (nextQuestion < trivia.results.length) {
       setCurrentQuestion(nextQuestion);
@@ -21,7 +23,7 @@ function DisplayQuizQuestion({ trivia }) {
     }
   };
 
-  const handleCorrectAnswerButton = () => {
+  const HandleCorrectAnswerButton = () => {
     // console.log(handleCorrectAnswerButton);
 
     const nextQuestion = currentQuestion + 1;
@@ -36,42 +38,42 @@ function DisplayQuizQuestion({ trivia }) {
     <>
       <div className="DisplayQuizQuestion">
         {showScore ? (
-          <div className="score-section">
+          <ScoreSection>
             You scored {score} out of {trivia.results.length}
-          </div>
+          </ScoreSection>
         ) : (
           <div>
-            <div className="question-section">
-              <div className="question-count">
+            <QuestionSection>
+              <QuestionCount>
                 <span>Question 1 out of {currentQuestion + 1} </span>
-              </div>
-              <div className="question-text">
+              </QuestionCount>
+              <QuestionText>
                 {" "}
                 {trivia.results[currentQuestion].question}
-              </div>
-              <div className="answer-section">
+              </QuestionText>
+              <AnswerSection>
                 {trivia.results[currentQuestion].incorrect_answers.map(
                   (incorrectAnswer) => (
-                    <button
+                    <Button
                       onClick={
-                        () => handleWrongAnswerButton()
+                        () => HandleWrongAnswerButton()
 
                         //   trivia.results[currentQuestion].incorrectAnswer
                       }
                     >
                       {incorrectAnswer}
-                    </button>
+                    </Button>
                   )
                 )}
-              </div>
+              </AnswerSection>
 
-              <div className="answer-section">
-                <button
-                  onClick={() => handleCorrectAnswerButton(setScore(score + 1))}
+              <AnswerSection>
+                <Button
+                  onClick={() => HandleCorrectAnswerButton(setScore(score + 1))}
                 >
                   {trivia.results[currentQuestion].correct_answer}
-                </button>
-              </div>
+                </Button>
+              </AnswerSection>
 
               <div>
                 <br />
@@ -79,7 +81,7 @@ function DisplayQuizQuestion({ trivia }) {
                 <br />
                 {` Difficulty: ${trivia.results[currentQuestion].difficulty}`}
               </div>
-            </div>
+            </QuestionSection>
           </div>
         )}
       </div>
@@ -87,4 +89,56 @@ function DisplayQuizQuestion({ trivia }) {
   );
 }
 
-export default DisplayQuizQuestion;
+const ScoreSection = styled.div`
+  display: flex;
+  font-size: 24px;
+  align-items: center;
+`;
+
+const QuestionSection = styled.div`
+  width: 100%;
+  position: relative;
+`;
+
+const AnswerSection = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
+const Button = styled.button`
+  width: 100%;
+  font-size: 16px;
+  color: white;
+  background-color: #252d4a;
+  border-radius: 15px;
+  display: flex;
+  padding: 5px;
+  justify-content: flex-start;
+  align-items: center;
+  border: 5px solid #234668;
+  cursor: pointer;
+  :hover {
+    background-color: #555e7d;
+  }
+
+  :focus {
+    outline: none;
+  }
+`;
+
+const QuestionCount = styled.div`
+  margin-bottom: 20px;
+  font-size: 28px;
+`;
+
+const QuestionText = styled.div`
+  margin-bottom: 12px;
+`;
+
+// const CorrectAnswerColor = styled.div`
+//   background-color: ${(prop) => (prop.clicked ? "green" : "red")};
+// `;
+
+// export default DisplayQuizQuestion;
