@@ -1,6 +1,6 @@
-import React, { useDebugValue, useState } from "react";
-import useSound from "use-sound";
-import woosh from "../sounds/woosh.mp3";
+import React, { useState } from "react";
+//import useSound from "use-sound";
+//import woosh from "../sounds/woosh.mp3";
 import styled from "styled-components";
 
 export default function DisplayQuizQuestion({ trivia }) {
